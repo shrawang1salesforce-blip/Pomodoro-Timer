@@ -74,8 +74,6 @@ button {
   border-radius: 50%;
 }
 
-.topbar-note,
-.page-footer,
 .small-note {
   color: var(--muted);
   font-size: 12px;
@@ -303,7 +301,7 @@ input:focus-visible {
 }
 
 .session-number {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: Georgia, serif;
   font-size: 50px;
   letter-spacing: -0.06em;
   line-height: 1;
@@ -384,21 +382,6 @@ input:focus-visible {
   appearance: textfield;
 }
 
-.page-footer {
-  min-height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.footer-dot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #b6b8ae;
-}
-
 @media (max-width: 720px) {
   .page {
     width: min(100% - 32px, 480px);
@@ -406,12 +389,6 @@ input:focus-visible {
 
   .topbar {
     min-height: 75px;
-  }
-
-  .topbar-note {
-    max-width: 125px;
-    text-align: right;
-    line-height: 1.5;
   }
 
   .timer-layout {
@@ -456,11 +433,6 @@ input:focus-visible {
     padding: 21px;
   }
 
-  .page-footer {
-    flex-wrap: wrap;
-    padding: 12px 0;
-    font-size: 11px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

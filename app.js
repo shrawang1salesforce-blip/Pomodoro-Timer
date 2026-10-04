@@ -28,7 +28,8 @@ function readSavedSettings() {
       break: validLength(saved?.break, defaults.break, 60),
     };
   } catch {
-    elements.settingsNote.textContent = "Couldn’t read saved settings; using the defaults.";
+    elements.settingsNote.textContent =
+      "Couldn’t read saved settings; using the defaults.";
     return { ...defaults };
   }
 }
@@ -56,9 +57,12 @@ function readSessionCount() {
   try {
     const saved = JSON.parse(localStorage.getItem(countKey));
     if (saved?.date !== today()) return 0;
-    return Number.isSafeInteger(saved.count) && saved.count > 0 ? saved.count : 0;
+    return Number.isSafeInteger(saved.count) && saved.count > 0
+      ? saved.count
+      : 0;
   } catch {
-    elements.status.textContent = "Couldn’t read today’s session count; starting at zero.";
+    elements.status.textContent =
+      "Couldn’t read today’s session count; starting at zero.";
     return 0;
   }
 }
@@ -83,14 +87,19 @@ function formatTime(seconds) {
 function render() {
   elements.time.textContent = formatTime(remaining);
   elements.face.dataset.mode = mode;
-  elements.label.textContent = mode === "work" ? "Time to focus" : "Time to pause";
-  elements.hint.textContent = mode === "work"
-    ? "One thing at a time."
-    : "Step away for a little while.";
+  elements.label.textContent =
+    mode === "work" ? "Time to focus" : "Time to pause";
+  elements.hint.textContent =
+    mode === "work" ? "One thing at a time." : "Step away for a little while.";
   elements.start.textContent = running
     ? "Pause"
-    : mode === "work" ? "Start focus" : "Start break";
-  elements.start.setAttribute("aria-label", running ? "Pause timer" : elements.start.textContent);
+    : mode === "work"
+      ? "Start focus"
+      : "Start break";
+  elements.start.setAttribute(
+    "aria-label",
+    running ? "Pause timer" : elements.start.textContent,
+  );
 
   const progress = 1 - remaining / durationFor(mode);
   elements.progress.style.strokeDasharray = ringLength;
@@ -147,7 +156,8 @@ function startTimer() {
 
   running = true;
   endsAt = Date.now() + remaining * 1000;
-  elements.status.textContent = mode === "work" ? "You’re doing fine. Keep going." : "Enjoy the breather.";
+  elements.status.textContent =
+    mode === "work" ? "You’re doing fine. Keep going." : "Enjoy the breather.";
   stopTicking();
   tickId = window.setInterval(updateTimer, 250);
   render();
@@ -173,7 +183,10 @@ function finishTimer() {
   if (finishedMode === "work") {
     completedSessions += 1;
     try {
-      localStorage.setItem(countKey, JSON.stringify({ date: today(), count: completedSessions }));
+      localStorage.setItem(
+        countKey,
+        JSON.stringify({ date: today(), count: completedSessions }),
+      );
     } catch {
       countSaved = false;
     }
@@ -194,12 +207,15 @@ function finishTimer() {
 }
 
 function notify(finishedMode) {
-  if (!("Notification" in window) || Notification.permission !== "granted") return;
+  if (!("Notification" in window) || Notification.permission !== "granted")
+    return;
 
-  const title = finishedMode === "work" ? "Focus session finished" : "Break is over";
-  const body = finishedMode === "work"
-    ? "Take a few minutes away from your screen."
-    : "Come back when you're ready.";
+  const title =
+    finishedMode === "work" ? "Focus session finished" : "Break is over";
+  const body =
+    finishedMode === "work"
+      ? "Take a few minutes away from your screen."
+      : "Come back when you're ready.";
   new Notification(title, { body });
 }
 
@@ -225,7 +241,11 @@ function resetTimer() {
 
 function saveSettings() {
   const focus = validLength(elements.focusLength.value, settings.focus, 180);
-  const breakLength = validLength(elements.breakLength.value, settings.break, 60);
+  const breakLength = validLength(
+    elements.breakLength.value,
+    settings.break,
+    60,
+  );
 
   settings.focus = focus;
   settings.break = breakLength;
@@ -236,7 +256,8 @@ function saveSettings() {
     localStorage.setItem(storageKey, JSON.stringify(settings));
     elements.settingsNote.textContent = "Changes are saved on this device.";
   } catch {
-    elements.settingsNote.textContent = "Couldn’t save settings in this browser.";
+    elements.settingsNote.textContent =
+      "Couldn’t save settings in this browser.";
   }
 
   if (!running) {
@@ -246,13 +267,15 @@ function saveSettings() {
 }
 
 elements.start.addEventListener("click", () => {
-  const askForPermission = !running
-    && "Notification" in window
-    && Notification.permission === "default";
+  const askForPermission =
+    !running &&
+    "Notification" in window &&
+    Notification.permission === "default";
   startTimer();
   if (askForPermission) {
     Notification.requestPermission().catch(() => {
-      elements.status.textContent = "Timer started. Notifications aren’t available right now.";
+      elements.status.textContent =
+        "Timer started. Notifications aren’t available right now.";
     });
   }
 });
