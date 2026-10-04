@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f4ef">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="topbar">
+        <a class="wordmark" href="./" aria-label="Pomodoro Timer home">
+          <span class="wordmark-mark" aria-hidden="true"></span>
+          <span>little by little</span>
+        </a>
+        <p class="topbar-note">A quieter way to get things done.</p>
+      </header>
+
+      <section class="timer-layout" aria-label="Pomodoro timer">
+        <div class="timer-panel">
+          <div class="mode-tabs" role="group" aria-label="Timer mode">
+            <button class="mode-tab is-active" type="button" data-mode="work" aria-pressed="true">Focus</button>
+            <button class="mode-tab" type="button" data-mode="break" aria-pressed="false">Break</button>
+          </div>
+
+          <div class="timer-face" id="timer-face" data-mode="work">
+            <svg class="progress-ring" viewBox="0 0 280 280" aria-hidden="true">
+              <circle class="progress-track" cx="140" cy="140" r="128"></circle>
+              <circle class="progress-value" id="progress-value" cx="140" cy="140" r="128"></circle>
+            </svg>
+            <div class="timer-readout">
+              <p class="timer-label" id="timer-label">Time to focus</p>
+              <p class="timer-time" id="timer-time" role="timer" aria-live="off">25:00</p>
+              <p class="timer-hint" id="timer-hint">One thing at a time.</p>
+            </div>
+          </div>
+
+          <div class="timer-controls">
+            <button class="button button-primary" id="start-button" type="button">Start focus</button>
+            <button class="button button-reset" id="reset-button" type="button" aria-label="Reset timer">Reset</button>
+          </div>
+          <p class="status-note" id="status-note" aria-live="polite">Ready when you are.</p>
+        </div>
+
+        <aside class="side-panel">
+          <section class="today-card" aria-labelledby="today-heading">
+            <div class="section-heading">
+              <p class="eyebrow">A little progress</p>
+              <h1 id="today-heading">Today</h1>
+            </div>
+            <div class="session-total">
+              <span class="session-number" id="session-count">0</span>
+              <span class="session-copy">focus sessions<br>finished</span>
+            </div>
+            <div class="session-dots" id="session-dots" aria-label="No focus sessions finished yet"></div>
+            <p class="small-note">Every finished session counts. No streaks to keep up with.</p>
+          </section>
+
+          <section class="settings-card" aria-labelledby="settings-heading">
+            <div class="section-heading">
+              <p class="eyebrow">Make it yours</p>
+              <h2 id="settings-heading">Timer lengths</h2>
+            </div>
+            <div class="settings-fields">
+              <label class="setting-field" for="focus-length">
+                <span>Focus</span>
+                <span class="input-wrap">
+                  <input id="focus-length" name="focus-length" type="number" min="1" max="180" inputmode="numeric" value="25">
+                  <span>min</span>
+                </span>
+              </label>
+              <label class="setting-field" for="break-length">
+                <span>Break</span>
+                <span class="input-wrap">
+                  <input id="break-length" name="break-length" type="number" min="1" max="60" inputmode="numeric" value="5">
+                  <span>min</span>
+                </span>
+              </label>
+            </div>
+            <p class="small-note" id="settings-note">Changes are saved on this device.</p>
+          </section>
+        </aside>
+      </section>
+
+      <footer class="page-footer">
+        <span>Make room for a proper break.</span>
+        <span class="footer-dot" aria-hidden="true"></span>
+        <span>Your settings stay on this device.</span>
+      </footer>
+    </main>
+  </body>
+</html>
